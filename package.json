@@ -1,0 +1,22 @@
+{
+  "name": "cord.js",
+  "version": "1.0.0",
+  "description": "unfinished discordapp library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cth1003/cord.js.git"
+  },
+  "keywords": [
+    "discord"
+  ],
+  "author": "Cth103",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cth1003/cord.js/issues"
+  },
+  "homepage": "https://github.com/Cth1003/cord.js#readme"
+}
