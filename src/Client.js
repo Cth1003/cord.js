@@ -7,7 +7,6 @@ Client
 basicly a client,
 yep. a client
 */
-const Message = require('./Message.js');
 const EventEmitter = require('events').EventEmitter;
 const request = require('request');
 const apibase = "https://discordapp.com/api/";
@@ -17,7 +16,7 @@ class Client extends EventEmitter {
 function(token) {
 if (token = null) {
 	console.log("ERROR : You need to add a token.");
-} else if (gateway().startsWith('{"url": "wss://gateway.discord.gg')) {
+} else if (gateway.startsWith('{"url": "wss://gateway.discord.gg')) {
    loginWithToken(token);
    this.emit("ready")
 	var message = decompressWSMessage(data, flags);
@@ -46,7 +45,7 @@ function decompressWSMessage(m, f) {
 	f = f || {};
 	return f.binary ? JSON.parse(Zlib.inflateSync(m).toString()) : JSON.parse(m);
 }
-function gateway(){
+var gateway = function(){
 	request(apibase + "/gateway?encoding=json&v=4", function (error, response, body) {
     if (!error && response.statusCode == 200) {
     return body;
