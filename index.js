@@ -4,5 +4,5 @@ by cth103
 */
 
 module.exports = {
-	Client: require('./src/Client.js'),
+	Client: require('./src/Client.js');
 }
