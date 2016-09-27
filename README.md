@@ -4,7 +4,7 @@ Very unfinished [discordapp](http://discordapp.com) library for node.js :neutral
 **i don't think i will release this** :smile:
 
 ### Installation
-`npm install discord.io`
+`npm install cord.js`
 
 ### Example
 ```
