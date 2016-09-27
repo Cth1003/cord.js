@@ -7,7 +7,7 @@ Client
 basicly a client,
 yep. a client
 */
-const EventEmitter = require('events').EventEmitter
+const EventEmitter = require('events').EventEmitter;
 const request = require('request');
 const apibase = "https://discordapp.com/api/";
 //not used at all
@@ -15,9 +15,9 @@ const ptbapibase = "https://ptb.discordapp.com/api/";
 class Client extends EventEmitter {
 function(token) {
 if (token = null) {
-	console.log("ERROR : You need to add a token.")
+	console.log("ERROR : You need to add a token.");
 } else {
-   loginWithToken(token)
+   loginWithToken(token);
 }
 }
 }
