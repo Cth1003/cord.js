@@ -7,6 +7,7 @@ Client
 basicly a client,
 yep. a client
 */
+const Message = require('./Message.js');
 const EventEmitter = require('events').EventEmitter;
 const request = require('request');
 const apibase = "https://discordapp.com/api/";
@@ -16,7 +17,7 @@ class Client extends EventEmitter {
 function(token) {
 if (token = null) {
 	console.log("ERROR : You need to add a token.");
-} else if (gateway.startsWith('{"url": "wss://gateway.discord.gg')) {
+} else if (gateway().startsWith('{"url": "wss://gateway.discord.gg')) {
    loginWithToken(token);
    this.emit("ready")
 	var message = decompressWSMessage(data, flags);
@@ -34,18 +35,25 @@ if (token = null) {
 				this.emit('message_update', message, client._messageCache[_data.channel_id][_data.id], _data);
 			} catch (e) { this.emit("error", message, undefined, _data); }
 			return 0;
+	function sendMessage(channelid, message) {
+		request.post({url: apibase + channelid + '/messages', formData: '{content = ' + message + '}'}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return err;
+  }
+  return body;
+});
+}
 }
 } else {
 	 console.log("ERROR : Gateway isn't ready")
 }
 }
 }
-
 function decompressWSMessage(m, f) {
 	f = f || {};
 	return f.binary ? JSON.parse(Zlib.inflateSync(m).toString()) : JSON.parse(m);
 }
-var gateway = function(){
+function gateway(){
 	request(apibase + "/gateway?encoding=json&v=4", function (error, response, body) {
     if (!error && response.statusCode == 200) {
     return body;
