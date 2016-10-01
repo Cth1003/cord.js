@@ -7,6 +7,7 @@ Client
 basicly a client,
 yep. a client
 */
+const Zlib = require('zlib');
 const Message = require('./Message.js');
 const EventEmitter = require('events').EventEmitter;
 const request = require('request');
