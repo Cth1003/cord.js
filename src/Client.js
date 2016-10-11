@@ -10,17 +10,15 @@ yep. a client
 const Zlib = require('zlib');
 const Message = require('./Message.js');
 const EventEmitter = require('events').EventEmitter;
-const request = require('request');
-const apibase = "https://discordapp.com/api/";
-//not used at all
-const ptbapibase = "https://ptb.discordapp.com/api/";
+const request = require('superagent'); //way better than the "request" module
+const apibase = "https://canary.discordapp.com/api/";
 class Client extends EventEmitter {
 function(token) {
 if (token = null) {
-	console.log("ERROR : You need to add a token.");
+	throw new Error("You need to add a token.");
 } else if (gateway.startsWith('{"url": "wss://gateway.discord.gg')) {
    loginWithToken(token);
-   this.emit("ready")
+   this.emit("gateway_ready")
 	var message = decompressWSMessage(data, flags);
 	var _data = message.d;
 
@@ -37,17 +35,13 @@ if (token = null) {
 			} catch (e) { this.emit("error", message, undefined, _data); }
 			return 0;
 
-	function sendMessage(channelid, message) {
-		request.post({url: apibase + channelid + '/messages', formData: '{content = ' + message + '}'}, function optionalCallback(err, httpResponse, body) {
-  if (err) {
-    return err;
-  }
-  return body;
-});
+}
+send_message(msg) {
+//soon.
 }
 }
 } else {
-	 console.log("ERROR : Gateway isn't ready")
+	 throw new Error("Gateway isn't ready")
 }
 }
 }
@@ -57,28 +51,25 @@ function decompressWSMessage(m, f) {
 }
 
 var gateway = function(){
-	request(apibase + "/gateway?encoding=json&v=4", function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-    return body;
-    } else {
-	return "Error :" + error + " statusCode : " + response.statusCode
-	}
-    });
+request.get(apibase + "/gateway?encoding=json&v=4, function(err, res){
+  if (err) throw err;
+  return res.text;
+});
 }
 
 function loginWithToken(token){
-request.post({url: apibase + 'auth/login', formData: '{token = ' + token + '}'}, function optionalCallback(err, httpResponse, body) {
-  if (err) {
-    return err;
-  }
-  return body;
+request
+     .post(apibase + "/auth/login")
+    .send({ token: token })
+  if (err) throw err;
+  return res.text;
 });
 }
 function disconnectWithToken(token){
-request.post({url: apibase + 'auth/logout', formData: '{token = ' + token + '}'}, function optionalCallback(err, httpResponse, body) {
-  if (err) {
-    return err;
-  }
-  return body;
+request
+     .post(apibase + "/auth/logout")
+    .send({ token: token })
+  if (err) throw err;
+  return res.text;
 });
 }
