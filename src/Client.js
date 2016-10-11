@@ -70,7 +70,7 @@ function decompressWSMessage(m, f) {
 }
 
 var gateway = function(){
-request.get(apibase + "/gateway?encoding=json&v=4, function(err, res){
+request.get(apibase + "/gateway?encoding=json&v=4", function(err, res){
   if (err) throw err;
   return res.text;
 });
