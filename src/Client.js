@@ -11,7 +11,7 @@ const Zlib = require('zlib');
 const Message = require('./Message.js');
 const EventEmitter = require('events').EventEmitter;
 const request = require('superagent'); //way better than the "request" module
-const apibase = "https://canary.discordapp.com/api/";
+const apibase = "https://discordapp.com/api/";
 class Client extends EventEmitter {
 function(token) {
 if (token = null) {
@@ -34,10 +34,29 @@ if (token = null) {
 				this.emit('message_update', message, client._messageCache[_data.channel_id][_data.id], _data);
 			} catch (e) { this.emit("error", message, undefined, _data); }
 			return 0;
-
+                case "GUILD_CREATE":
+			this.emit("new_guild");
+		case "GUILD_UPDATE":
+			this.emit("guild_update");
+		case "GUILD_DELETE":
+			this.emit("guild_delete");
+		case "GUILD_MEMBER_ADD":
+			this.emit("member_add");
+		case "GUILD_MEMBER_UPDATE":
+			this.emit("member_update");
+		case "GUILD_MEMBER_REMOVE":
+			this.emit("member_remove");
+		case "GUILD_ROLE_CREATE":
+			this.emit("role_create");
+		case "GUILD_ROLE_UPDATE":
+			this.emit("role_update");
+		case "GUILD_ROLE_DELETE":
+			this.emit("role_delete");
+		case "GUILD_EMOJIS_UPDATE"
+			this.emit("emojis_update");
 }
-send_message(msg) {
-//soon.
+send_message(toid , msg) {
+//oh well
 }
 }
 } else {
