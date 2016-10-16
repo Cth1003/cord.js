@@ -3,9 +3,7 @@ cord.js
 by cth103
 ---------
 Client
----------
-basicly a client,
-yep. a client
+--------
 */
 const Zlib = require('zlib');
 const Message = require('./Message.js');
@@ -55,8 +53,12 @@ if (token = null) {
 		case "GUILD_EMOJIS_UPDATE"
 			this.emit("emojis_update");
 }
-send_message(toid , msg) {
-//oh well
+send_message(toid ,msg) {
+///gunna do it
+request
+     .post(apibase + "/channels/" + toid + "/messages")
+    .send({ content: msg })
+});
 }
 }
 } else {
@@ -80,6 +82,7 @@ function loginWithToken(token){
 request
      .post(apibase + "/auth/login")
     .send({ token: token })
+function(err, res){
   if (err) throw err;
   return res.text;
 });
@@ -88,6 +91,7 @@ function disconnectWithToken(token){
 request
      .post(apibase + "/auth/logout")
     .send({ token: token })
+function(err, res){
   if (err) throw err;
   return res.text;
 });
