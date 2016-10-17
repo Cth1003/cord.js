@@ -6,7 +6,6 @@ Client
 --------
 */
 const Zlib = require('zlib');
-const Message = require('./Message.js');
 const EventEmitter = require('events').EventEmitter;
 const request = require('superagent'); //way better than the "request" module
 const apibase = "https://discordapp.com/api/";
