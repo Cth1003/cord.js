@@ -83,6 +83,9 @@ if (this.token = null) {
 } else {
    var Socket = new WebSocket('wss://gateway.discord.gg/?encoding=json&v=6')
    loginWithToken(token);
+	Socket.onopen = function () {
+  this.emit("gateway_ready");
+         }
    Socket.onmessage = function (evt) {
   var event = JSON.parse(evt.data).t
      this.emit(event); //when you are too lazy to make some handling
@@ -91,6 +94,10 @@ send_message(channel , msg) {
 });
 editMessage (channel, id, content) {
   return apiCall('PATCH', 'https://discordapp.com/api/channels/' + channel + '/messages/' + id, true, {authorization: this.token, body: {content: content}})
+});
+editGame (status, game) {
+  if (!game) game = {"name": null}
+  return Socket.send(JSON.stringify({"op": 3, "d": {"game": game, "afk": "", "since": Date.now(), "status": status}}))
 });
 }
 }
